@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>U2 Ismail | Bio-Elite v5 ⚡</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        :root { --gold: #ffcc00; --cyan: #00f2ff; --bg-overlay: rgba(0, 0, 0, 0.75); }
+        
+        /* --- أنيميشن حركة الخلفية السريعة والمظبوطة --- */
+        @keyframes bg-pan {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 10% 5%; }
+            50% { background-position: 5% 10%; }
+            75% { background-position: 0% 5%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        body { 
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: 110% 110%; /* الحجم اللي طلبته */
+            background-attachment: fixed;
+            color: white; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden;
+            animation: bg-pan 10s linear infinite; /* سرعة 10 ثواني لحركة ملحوظة */
+        }
+
+        /* --- بروفايل إسماعيل الملكي --- */
+        .admin-profile {
+            position: fixed; top: 25px; left: 25px; z-index: 1000;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+        }
+
+        .profile-img-container {
+            position: relative; width: 90px; height: 90px; border-radius: 50%; padding: 4px;
+            background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            box-shadow: 0 0 30px rgba(191, 149, 63, 0.6);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; 
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .profile-img-container img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #000;
+        }
+
+        .profile-img-container:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 0 45px var(--gold);
+        }
+
+        .admin-brand {
+            font-weight: 900; font-size: 20px; letter-spacing: 3px;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5));
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes pulse-glow { 0% { transform: scale(0.9); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 0.6; } 100% { transform: scale(0.9); opacity: 0.3; } }
+
+        /* --- الواجهة الرئيسية --- */
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; opacity: 0.3; }
+        
+        .container { 
+            max-width: 600px; margin: 160px auto 50px; padding: 35px;
+            background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(25px); 
+            border-radius: 40px; border: 1px solid rgba(0, 242, 255, 0.15);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.8); text-align: center; position: relative; z-index: 1;
+        }
+
+        .yango-logo-wrapper { position: relative; width: 80px; height: 80px; margin: 0 auto 20px; }
+        .yango-icon { 
+            width: 65px; height: 65px; z-index: 2; position: relative;
+            filter: drop-shadow(0 0 20px var(--cyan)); 
+            animation: floating 4s ease-in-out infinite; 
+            border-radius: 15px; 
+        }
+        .yango-glow { 
+            position: absolute; inset: 0; background: var(--cyan); border-radius: 50%; 
+            filter: blur(25px); animation: pulse-glow 2s infinite; 
+        }
+
+        h1 { color: var(--gold); text-shadow: 0 0 20px var(--gold); font-size: 22px; margin-bottom: 30px; }
+
+        .input-style { 
+            width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 15px; 
+            background: rgba(0,0,0,0.5); border: 1px solid #333; color: var(--cyan); 
+            text-align: center; outline: none; transition: 0.3s; box-sizing: border-box;
+        }
+        .input-style:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 204, 0, 0.2); }
+
+        .upload-box { 
+            width: 100%; height: 85px; border: 2px dashed #444; border-radius: 20px; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            cursor: pointer; margin-bottom: 20px; background: rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .upload-box:hover { border-color: var(--cyan); background: rgba(0, 242, 255, 0.1); }
+
+        .btn-ignite { 
+            width: 100%; padding: 18px; border-radius: 15px; background: var(--gold); 
+            color: #000; font-size: 19px; font-weight: 900; border: none; cursor: pointer; transition: 0.3s; 
+        }
+        .btn-ignite:hover { box-shadow: 0 0 40px var(--gold); transform: translateY(-3px); }
+
+        /* --- الأرشيف --- */
+        .history-btn { 
+            position: fixed; bottom: 35px; right: 35px; width: 65px; height: 65px; 
+            background: linear-gradient(45deg, #ff0000, #ffcc00); border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; cursor: pointer; 
+            z-index: 100; box-shadow: 0 10px 25px rgba(255,0,0,0.4); animation: floating 3s ease-in-out infinite;
+        }
+
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { width: 90%; max-width: 550px; background: #0c0c0c; border-radius: 35px; border: 1px solid var(--gold); padding: 30px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .card-log { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; margin-bottom: 15px; border-right: 5px solid var(--gold); text-align: right; }
+        .cmd-box { font-family: monospace; background: #000; padding: 12px; border-radius: 12px; font-size: 11px; margin-top: 10px; border: 1px solid #222; direction: ltr; text-align: left; word-break: break-all; color: #eee; }
+        .btn-copy { background: var(--cyan); color: #000; border: none; padding: 10px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+        /* --- شريط السوشيال ميديا النيون --- */
+.social-bar-ismail {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-item-ismail {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+/* تأثيرات الوقوف بالماوس لكل منصة */
+.social-item-ismail:hover {
+    transform: translateY(-10px) scale(1.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* فيسبوك - أزرق نيون */
+.social-item-ismail.fb:hover { 
+    background: #1877f2; border-color: #1877f2; 
+    box-shadow: 0 0 25px rgba(24, 119, 242, 0.7); 
+}
+
+/* إنستجرام - أرجواني/وردي نيون */
+.social-item-ismail.ig:hover { 
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+    border-color: #dc2743; 
+    box-shadow: 0 0 25px rgba(220, 39, 67, 0.7); 
+}
+
+/* تيك توك - أسود/نيون */
+.social-item-ismail.tk:hover { 
+    background: #000; border-color: #ff0050; 
+    box-shadow: 0 0 25px rgba(255, 0, 80, 0.7), -5px 0 10px rgba(0, 242, 255, 0.5); 
+}
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
+    <div class="admin-profile animate__animated animate__fadeInDown">
+        <div class="profile-img-container">
+            <img src="{{ url_for('static', filename='ismail.jpg') }}" alt="Ismail">
+        </div>
+        <div class="admin-brand">U2 | ISMAIL</div>
+    </div>
+
+    <div class="history-btn" onclick="toggleModal()"><i class="fas fa-history fa-lg"></i></div>
+
+    <div class="modal" id="hModal">
+        <div class="modal-content animate__animated animate__zoomIn">
+            <i class="fas fa-times-circle" style="position: absolute; top: 20px; left: 20px; color: var(--gold); cursor: pointer; font-size: 22px;" onclick="toggleModal()"></i>
+            <h2 style="color: var(--gold); text-align: center; margin-bottom: 25px;">📜 أرشيف العمليات</h2>
+            <div id="logItems"></div>
+        </div>
+    </div>
+
+    <div class="container animate__animated animate__fadeInUp">
+        <div class="yango-logo-wrapper">
+            <div class="yango-glow"></div>
+            <img src="https://play.yango.com/favicon.ico" class="yango-icon">
+        </div>
+        <h1>Yango Play Decryptor v5</h1>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" id="mTitle" placeholder="🎬 اسم المحتوى..." class="input-style" style="border-color: var(--gold);">
+            <input type="text" id="mUrl" placeholder="🔗 رابط الـ MPD..." class="input-style">
+            <input type="text" name="pssh" placeholder="🔐 PSSH Code..." class="input-style" required>
+            
+            <div class="upload-box" onclick="document.getElementById('fInp').click()">
+                <i class="fas fa-file-code" style="font-size: 24px; color: #555;"></i>
+                <p id="fName" style="color: #888; margin-top: 10px; font-size: 13px;">ارفع ملف الـ cURL للتوكن</p>
+                <input type="file" name="curl_file" id="fInp" hidden required onchange="updateFileName(this)">
+            </div>
+            
+            <button type="submit" class="btn-ignite" onclick="this.innerText='جاري الاستخراج... ⚡'">استخراج المفاتيح والأرشفة ⚡</button>
+        </form>
+
+        {% if result %}
+            <div class="animate__animated animate__bounceIn" style="margin-top:25px; padding:20px; border:1px solid var(--cyan); border-radius:25px; background:rgba(0,0,0,0.6); text-align:right;">
+                {% if result.status == "success" %}
+                    <script>document.getElementById('successSound').play();</script>
+                    <p style="color: var(--gold); font-weight: bold;">✅ تم فك التشفير بنجاح!</p>
+                    <div class="cmd-box" id="liveCmd">
+                        N_m3u8DL-RE "<span id="liveMpd"></span>" --key {{ result.extracted_keys[0] }} --save-name "Ismail_Video" -M format=mp4
+                    </div>
+                    <button class="btn-copy" onclick="copyTxt(document.getElementById('liveCmd').innerText, this)">نسخ أمر التحميل المباشر 📋</button>
+                    <script>
+                        window.addEventListener('load', () => {
+                            let mpd = sessionStorage.getItem('last_mpd') || "رابط_مفقود";
+                            document.getElementById('liveMpd').innerText = mpd;
+                            saveToLogs("{{ result.extracted_keys[0] }}", mpd);
+                        });
+                    </script>
+                {% else %}<p style="color: #ff3366;">{{ result.msg }}</p>{% endif %}
+            </div>
+        {% endif %}
+        <div class="social-bar-ismail">
+            <a href="https://www.facebook.com/ismail.gohar.250809/" target="_blank" class="social-item-ismail fb">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/ismail_gohar1" target="_blank" class="social-item-ismail ig">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@ismailgohar2020" target="_blank" class="social-item-ismail tk">
+                <i class="fab fa-tiktok"></i>
+            </a>
+    </div>
+
+<script>
+    particlesJS('particles-js', { particles: { number: { value: 45 }, color: { value: '#00f2ff' }, opacity: { value: 0.2 }, move: { speed: 1.5 } } });
+
+    function updateFileName(i) { if(i.files[0]) document.getElementById('fName').innerText = "✅ جاهز: " + i.files[0].name; }
+
+    document.querySelector('form').onsubmit = () => {
+        sessionStorage.setItem('last_title', document.getElementById('mTitle').value || "بدون عنوان");
+        sessionStorage.setItem('last_mpd', document.getElementById('mUrl').value || "URL");
+    };
+
+    function toggleModal() {
+        const m = document.getElementById('hModal');
+        m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+        if(m.style.display === 'flex') drawLogs();
+    }
+
+    function saveToLogs(key, mpd) {
+        let title = sessionStorage.getItem('last_title') || "بدون عنوان";
+        let logs = JSON.parse(localStorage.getItem('ismail_vault') || '[]');
+        if (logs.some(x => x.key === key)) return;
+        logs.unshift({ title, key, mpd, date: new Date().toLocaleString('ar-EG') });
+        localStorage.setItem('ismail_vault', JSON.stringify(logs.slice(0, 30)));
+    }
+
+    function removeLog(idx) {
+        let logs = JSON.parse(localStorage.getItem('ismail_vault') || '[]');
+        logs.splice(idx, 1);
+        localStorage.setItem('ismail_vault', JSON.stringify(logs));
+        drawLogs();
+    }
+
+    function drawLogs() {
+        let logs = JSON.parse(localStorage.getItem('ismail_vault') || '[]');
+        document.getElementById('logItems').innerHTML = logs.length ? logs.map((l, i) => `
+            <div class="card-log animate__animated animate__fadeIn">
+                <i class="fas fa-trash" style="float:left; color:#ff4444; cursor:pointer;" onclick="removeLog(${i})"></i>
+                <div style="color: var(--gold); font-weight: bold; font-size: 17px;">🎬 ${l.title}</div>
+                <div style="color: #444; font-size: 10px; margin-bottom: 10px;">${l.date}</div>
+                <div class="cmd-box">N_m3u8DL-RE "${l.mpd}" --key ${l.key} --save-name "${l.title.replace(/\s+/g, '_')}" -M format=mp4</div>
+                <button class="btn-copy" onclick="copyTxt(this.previousElementSibling.innerText, this)">نسخ الكود 📋</button>
+            </div>
+        `).join('') : '<p style="text-align:center; color:#444;">لا يوجد محتوى في الأرشيف</p>';
+    }
+
+    function copyTxt(t, b) {
+        navigator.clipboard.writeText(t);
+        let s = b.innerText; b.innerText = "✅ تم النسخ!";
+        setTimeout(() => b.innerText = s, 1500);
+    }
+</script>
+</body>
+</html>
